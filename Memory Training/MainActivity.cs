@@ -4,8 +4,7 @@ using Android.OS;
 using System;
 using System.Timers;
 using Android.Views;
-using System.Collections.Generic;
-using System.Drawing;
+using System.Threading;
 
 namespace Memory_Training
 {
@@ -15,7 +14,7 @@ namespace Memory_Training
        // LinearLayout _mainPage;
         Button _button1;//, button2;
         GridLayout _cardsField;
-        Timer timer1;
+        System.Timers.Timer timer1;
        // List<Point> _cards_Point = new List<Point>();
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,7 +29,46 @@ namespace Memory_Training
             _cardsField.RowCount = 4;
             _cardsField.ColumnCount = 4;
             _button1.Click += button1_Click;
+            timer1 = new System.Timers.Timer();
+            timer1.Interval = TimeSpan.FromSeconds(0.03).TotalMilliseconds;
+            timer1.Elapsed += Timer1_Elapsed;
         }
+
+        private void Timer1_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            MoveCards();
+
+            var needStopTimer = (_secondCard == null && _firstCard.RotationY == 180)
+                                || _secondCard.RotationY == 0;
+            if (needStopTimer)
+                timer1.Stop();
+
+            InvertStep();
+
+            //если открыли вторую карту, даем 2 секунды на посмотреть
+            if (_secondCard?.RotationY == 180)
+            {
+                timer1.Stop();
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+                timer1.Start();
+                //TODO:
+                //либо закрыть карты если разные
+                //TODO:доделать заполнение переменной проверкой одинаковые ли картинки
+                var sameImages = false;
+                if (sameImages)
+                {
+                    _firstCard.Visibility = _secondCard.Visibility = ViewStates.Gone;
+                    ResetCards();
+                    return;
+                }
+            }
+
+            if (_secondCard != null && _secondCard.RotationY == 0)
+            {
+                ResetCards();
+            }
+        }
+
         Button Card;
         
         int i = 0;
@@ -38,10 +76,10 @@ namespace Memory_Training
         {
             Card = new Button(this);
             Card.Click += card_Click;
-
+            Card.Text = 5.ToString();
             _cardsField.AddView(Card);
-            Card.LayoutParameters.Width = 100;
-            Card.LayoutParameters.Height = 100;
+            Card.LayoutParameters.Width = 300;
+            Card.LayoutParameters.Height = 300;
         }
         void button1_Click(object Cards, EventArgs e)
         {
@@ -61,120 +99,50 @@ namespace Memory_Training
         int step = 10;
         void card_Click(object sender, EventArgs e)
         {
-            /* if (_firstCardOpen == null)
-             {
-                 _firstCardOpen = (Button)sender;
-                 _isFirstCardOpen = true;
-             }
-             else if (_secondCardOpen == null)
-             {
-                 _secondCardOpen = (Button)sender;
-                 _isSecondCardOpen = true;
-             }
-            timer1 = new Timer();
-            timer1.Interval = TimeSpan.FromSeconds(0.03).TotalMilliseconds;
-            timer1.Start();
-            int step = 10;
-            //TimeSpan.FromSeconds(0.03).TotalMilliseconds;//FromMilliseconds(3)
-            timer1.Elapsed += (s, args) =>
-            {
-             if (_isFirstCardOpen == true && _isSecondCardOpen == false)
-                  {
-                      if (_firstCardOpen.RotationY < 180)
-                          _firstCardOpen.RotationY += 10;
-                      else
-                          timer1.Stop();
-                  }
-                  else if (_isFirstCardOpen == true && _isSecondCardOpen == true)
-                  {
-                      if (_secondCardOpen.RotationY < 180)
-                          _secondCardOpen.RotationY += 10;
-                      else
-                      {
-                          timer1.Stop();
-                          _isFirstCardOpen = false;
-                          _isSecondCardOpen = false;
-                      }
-                  }
-                  if (_isFirstCardOpen == false && _isSecondCardOpen == false)
-                  {
-                      if (_firstCardOpen.RotationY > 0 && _secondCardOpen.RotationY > 0)
-                      {
-                          _firstCardOpen.RotationY -= 10;
-                          _secondCardOpen.RotationY -= 10;
-                      }
-                      else if (_firstCardOpen.RotationY == 0 && _secondCardOpen.RotationY == 0)
-                         timer1.Stop();
-                  }
-             };
-             */
+            if(timer1.Enabled)
+                return;
+
             if (_firstCard == null)
                 _firstCard = (Button)sender;
             else if (_secondCard == null)
                 _secondCard = (Button)sender;
             else return;
 
-            timer1 = new Timer();
-            timer1.Interval =  TimeSpan.FromSeconds(0.03).TotalMilliseconds;
-            timer1.Start(); 
-            //TimeSpan.FromSeconds(0.03).TotalMilliseconds;//FromMilliseconds(3)
-            timer1.Elapsed += (s, args) =>
-            {/*
-                if (_secondCard != null && step < 0 && _secondCard.RotationY > 0)
-                {
+            StartMoveCards();
+        }
 
-                    _secondCard.RotationY += step;
-                    _firstCard.RotationY += step;
-                     
-                        return;
-                }
-                if (_secondCard != null && step > 0 && _secondCard.RotationY < 180)
-                    _secondCard.RotationY += step;
-                else if (step > 0 && _firstCard.RotationY < 180)
-                    _firstCard.RotationY += step;
-                if (_secondCard.RotationY == 180 || _secondCard.RotationY == 0)
-                {
-                    if (_secondCard.RotationY == 0)
-                    {
-                        _secondCard = null;
-                        _firstCard = null;
-                        timer1.Stop();
-                        step *= -1;
-                    }
-                    else
-                    {
-                        step *= -1;
-                        timer1.Stop();
-                    }
-                }
-                */
-                if (_secondCard != null && step < 0)
-                {
+        private void StartMoveCards()
+        {
+            timer1.Start();
+        }
 
-                    _secondCard.RotationY += step;
-                    _firstCard.RotationY += step;
+        private void InvertStep()
+        {
+            if (_secondCard != null && _secondCard.RotationY == 180 || _secondCard != null && _secondCard.RotationY == 0)
+                step *= -1;
 
-                    return;
-                }
-                if (_secondCard != null)
-                    _secondCard.RotationY += step;
-                else  
-                    _firstCard.RotationY += step;
-                if (_firstCard.RotationY == 180 || _secondCard.RotationY == 180 || _secondCard.RotationY == 0)
-                    timer1.Stop();
-                if (_secondCard!=null && _secondCard.RotationY == 180 || _secondCard != null && _secondCard.RotationY == 0)
-                              step *= -1;
-                 
-                if (_secondCard.RotationY == 0)
-                {
-                    _secondCard = null;
-                    _firstCard = null;
+            
+        }
 
-                }
-            };
-           
+        private void MoveCards()
+        {
+            if (_secondCard != null && step < 0)
+            {
+                _secondCard.RotationY += step;
+                _firstCard.RotationY += step;
+                return;
+            }
+            if (_secondCard != null)
+                _secondCard.RotationY += step;
+            else
+                _firstCard.RotationY += step;
         }
         
+        private void ResetCards()
+        {
+            _secondCard = null;
+            _firstCard = null;
+        }
  
     }
 }
