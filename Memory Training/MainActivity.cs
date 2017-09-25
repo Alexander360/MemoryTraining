@@ -65,7 +65,7 @@ namespace Memory_Training
             InvertStep();
             //если открыли вторую карту, даем 2 секунды на посмотреть
             if (_secondCard?.RotationY == 180)
-            {
+            { 
                 timer1.Stop();
                 if (_firstCard.Tag.ToString() == _secondCard.Tag.ToString())
                 {
