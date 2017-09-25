@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Timers;
 
@@ -17,12 +18,22 @@ namespace Memory_Training
         GridLayout _cardsField;
         System.Timers.Timer timer1;
         Spinner _spinner;
-        List<int> _numberForCardImage = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8 };
+        List<int> _numberForCardImage = new List<int>()
+        {
+            Resource.Drawable.animal_card1,
+            Resource.Drawable.animal_card2,
+            Resource.Drawable.animal_card3,
+            Resource.Drawable.animal_card4,
+            Resource.Drawable.animal_card5,
+            Resource.Drawable.animal_card6,
+            Resource.Drawable.animal_card7,
+            Resource.Drawable.animal_card8,
+            Resource.Drawable.animal_card9,
+        };
 
         int rowCount;
         int columnCount;
 
-        ImageButton Card;
         ImageButton _firstCard;
         ImageButton _secondCard;
         int step = 10;
@@ -55,7 +66,13 @@ namespace Memory_Training
 
         private void Timer1_Elapsed(object sender, ElapsedEventArgs e)
         {
-            MoveCards(); 
+            var movedCards = MoveCards();
+
+            if (movedCards.First().RotationY == 90)
+            {
+                movedCards.ForEach(card => card.SetBackgroundResource((int)card.Tag));
+            }
+
             var needStopTimer = (_secondCard == null && _firstCard.RotationY == 180)
                                 || _secondCard.RotationY == 0;
 
@@ -67,7 +84,7 @@ namespace Memory_Training
             if (_secondCard?.RotationY == 180)
             { 
                 timer1.Stop();
-                if (_firstCard.Tag.ToString() == _secondCard.Tag.ToString())
+                if (_firstCard.Tag == _secondCard.Tag)
                 {
                     _secondCard.Dispose();
                     _firstCard.Dispose();
@@ -99,42 +116,55 @@ namespace Memory_Training
             }
         }
 
-        private int generateNumForCardTag()
-        {
-            Random number = new Random();
-            int num = number.Next(1, 9);
-            if (_numberForCardImage.Contains(num))
-            {
-                Card.Tag = num;
-                _numberForCardImage.Remove(num);
-                return num;
-            }
-            return generateNumForCardTag();
-        }
-
-
         void generateCards()
         {
-            
+            _random = new Random();
+            var maxCount = rowCount * columnCount / 2;
+            _ids4Cards = _numberForCardImage.GetRange(0, maxCount);
+
+            _generatedids = new List<int>();
+
             for (int row = 0; row < rowCount; row++)
             {
                 for (int colum = 0; colum < columnCount; colum++)
                 {
-                    cardParameters();
+                    GenerateCard();
                 }
             }
         }
 
-        void cardParameters()
+        void GenerateCard()
         {
-            Card = new ImageButton(this);
-            Card.SetBackgroundResource(Resource.Drawable.quest);
-            Card.Click += card_Click;
-            generateNumForCardTag();
-            _cardsField.AddView(Card);
-            Card.LayoutParameters.Width = 100;
-            Card.LayoutParameters.Height = 100;
+            var сard = new ImageButton(this);
+            сard.SetBackgroundResource(Resource.Drawable.quest);
+            сard.Click += card_Click;
+            _cardsField.AddView(сard);
+            сard.Tag = GetResourceId4Card();
+            сard.LayoutParameters.Width = 150;
+            сard.LayoutParameters.Height = 150;
         }
+
+        private Random _random;
+        private List<int> _generatedids;
+        private List<int> _ids4Cards;
+
+        private int GetResourceId4Card()
+        {
+            var randomIndex = _random.Next(0, _ids4Cards.Count-1);
+            var randomId = _ids4Cards[randomIndex];
+
+            if (_generatedids.Count(id => id == randomId) == 2)
+            {
+                _ids4Cards.Remove(randomId);
+
+                return GetResourceId4Card();
+            }
+
+            _generatedids.Add(randomId);
+
+            return randomId;
+        }
+
  
         void button1_Click(object sender, EventArgs e)
         {
@@ -181,32 +211,29 @@ namespace Memory_Training
                 step *= -1;
         }
 
-        private void MoveCards()
+        /// <summary>
+        /// Move cards
+        /// </summary>
+        /// <returns>list of moved cards </returns>
+        private List<ImageButton> MoveCards()
         {
+            var movedCards = new List<ImageButton>();
             if (_secondCard != null && step < 0)
             {
-                if (_firstCard.RotationY == 90 && _secondCard.RotationY == 90)
-                {
-                    _firstCard.SetBackgroundResource(Resource.Drawable.quest); 
-                    _secondCard.SetBackgroundResource(Resource.Drawable.quest); 
-                }
                 _secondCard.RotationY += step;
                 _firstCard.RotationY += step;
-                return;
+
+                movedCards.Add(_firstCard);
+                movedCards.Add(_secondCard);
+                return movedCards;
             }
 
-            if (_secondCard != null)
-            {
-                _secondCard.RotationY += step;
-                if (_secondCard.RotationY == 90)
-                    _secondCard.SetBackgroundResource(Resource.Drawable.animal_card1);
-            }
-            else
-            {
-                _firstCard.RotationY += step;
-                if (_firstCard.RotationY == 90)
-                    _firstCard.SetBackgroundResource(Resource.Drawable.animal_card1);
-            }
+            var card4Move = _secondCard ?? _firstCard;
+
+            card4Move.RotationY += step;
+
+            movedCards.Add(card4Move);
+            return movedCards;
          }
 
         private void ResetCards()
