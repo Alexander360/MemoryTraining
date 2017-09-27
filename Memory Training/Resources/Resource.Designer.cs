@@ -74,6 +74,9 @@ namespace Memory_Training
 			// aapt resource value: 0x7f020009
 			public const int quest = 2130837513;
 			
+			// aapt resource value: 0x7f02000a
+			public const int www1 = 2130837514;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
