@@ -87,7 +87,7 @@ namespace Memory_Training
             if (_secondCard?.RotationY == 180)
             { 
                 timer1.Stop();
-                if (_firstCard.Tag.ToString() == _secondCard.Tag.ToString())
+                if (_firstCard.Tag == _secondCard.Tag)
                 {
                     
                     // _secondCard.Dispose();
