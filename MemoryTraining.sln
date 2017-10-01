@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memory Training", "Memory Training\Memory Training.csproj", "{C01C89D9-26A1-4450-BCAD-553407962064}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryTraining", "Memory Training\MemoryTraining.csproj", "{C01C89D9-26A1-4450-BCAD-553407962064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="main_background">
+    <item name="android:background" >@drawable/testGame2</item>
+  </style>
+
+  <style name="margin_default">
+    <item name="android:layout_marginRight" >@dimen/medium</item>
+    <item name="android:layout_marginLeft" >@dimen/medium</item>
+    <item name="android:layout_marginTop" >@dimen/medium</item>
+    <item name="android:layout_marginBottom" >@dimen/medium</item>
+  </style>
+  
+  
+</resources>

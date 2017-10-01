@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Memory_Training.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("MemoryTraining.Resource", IsApplication=true)]
 
-namespace Memory_Training
+namespace MemoryTraining
 {
 	
 	
@@ -37,6 +37,31 @@ namespace Memory_Training
 			}
 			
 			private Attribute()
+			{
+			}
+		}
+		
+		public partial class Dimension
+		{
+			
+			// aapt resource value: 0x7f050003
+			public const int big = 2131034115;
+			
+			// aapt resource value: 0x7f050002
+			public const int medium = 2131034114;
+			
+			// aapt resource value: 0x7f050001
+			public const int small = 2131034113;
+			
+			// aapt resource value: 0x7f050000
+			public const int tiny = 2131034112;
+			
+			static Dimension()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Dimension()
 			{
 			}
 		}
@@ -129,20 +154,32 @@ namespace Memory_Training
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int button1 = 2131099649;
+			// aapt resource value: 0x7f080008
+			public const int btn_exit = 2131230728;
 			
-			// aapt resource value: 0x7f060003
-			public const int gridLayout1 = 2131099651;
+			// aapt resource value: 0x7f080001
+			public const int btn_find_cards = 2131230721;
 			
-			// aapt resource value: 0x7f060000
-			public const int mainContainer = 2131099648;
+			// aapt resource value: 0x7f080006
+			public const int btn_new = 2131230726;
 			
-			// aapt resource value: 0x7f060004
-			public const int spinner1 = 2131099652;
+			// aapt resource value: 0x7f080007
+			public const int btn_settings = 2131230727;
 			
-			// aapt resource value: 0x7f060002
-			public const int text1 = 2131099650;
+			// aapt resource value: 0x7f080002
+			public const int button1 = 2131230722;
+			
+			// aapt resource value: 0x7f080004
+			public const int gridLayout1 = 2131230724;
+			
+			// aapt resource value: 0x7f080000
+			public const int mainContainer = 2131230720;
+			
+			// aapt resource value: 0x7f080005
+			public const int spinner1 = 2131230725;
+			
+			// aapt resource value: 0x7f080003
+			public const int text1 = 2131230723;
 			
 			static Id()
 			{
@@ -158,7 +195,13 @@ namespace Memory_Training
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int ChooseTraining = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int FindCards = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{
@@ -189,8 +232,23 @@ namespace Memory_Training
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int app_name = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int app_name = 2131099648;
+			
+			// aapt resource value: 0x7f060004
+			public const int btn_exit_text = 2131099652;
+			
+			// aapt resource value: 0x7f060002
+			public const int btn_new_text = 2131099650;
+			
+			// aapt resource value: 0x7f060003
+			public const int btn_settings_text = 2131099651;
+			
+			// aapt resource value: 0x7f060001
+			public const int choose_training = 2131099649;
+			
+			// aapt resource value: 0x7f060005
+			public const int find_cards_label = 2131099653;
 			
 			static String()
 			{
@@ -198,6 +256,25 @@ namespace Memory_Training
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int main_background = 2131165184;
+			
+			// aapt resource value: 0x7f070001
+			public const int margin_default = 2131165185;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

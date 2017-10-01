@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Memory Training</string>
+  <string name="app_name">Тренировка памяти</string>
+  <string name="choose_training">Выберите упражнение</string>
+  
+  <!--Main activity strings-->
+  <string name="btn_new_text">Выбрать упражнение</string>
+  <string name="btn_settings_text">Настройки</string>
+  <string name="btn_exit_text">Выход</string>
+
+  <!--Choose training strings-->
+  <string name="find_cards_label">Карты по парам</string>
 </resources>
