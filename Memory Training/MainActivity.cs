@@ -5,9 +5,13 @@ using Android.Widget;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Threading;
 using System.Timers;
 using Android.Graphics;
+using Android.Nfc.CardEmulators;
+using Android.Media;
+using Android.Text.Format;
 
 namespace Memory_Training
 {
@@ -17,19 +21,22 @@ namespace Memory_Training
        // LinearLayout _mainPage;
         Button _button1;
         GridLayout _cardsField;
-        System.Timers.Timer timer1;
+        System.Timers.Timer cardstimer;
+        System.Timers.Timer timeTimer;
         Spinner _spinner;
-        List<int> _numberForCardImage = new List<int>()
+        private MediaPlayer player;
+        private List<int> _numberForCardImage = new List<int>()
         {
-            Resource.Drawable.animal_card1,
-            Resource.Drawable.animal_card2,
-            Resource.Drawable.animal_card3,
-            Resource.Drawable.animal_card4,
-            Resource.Drawable.animal_card5,
-            Resource.Drawable.animal_card6,
-            Resource.Drawable.animal_card7,
-            Resource.Drawable.animal_card8,
-            Resource.Drawable.animal_card9,
+            Resource.Drawable.cards1,
+            Resource.Drawable.cards2,
+            Resource.Drawable.cards3,
+            Resource.Drawable.cards4,
+            Resource.Drawable.cards5,
+            Resource.Drawable.cards6,
+            Resource.Drawable.cards7,
+            Resource.Drawable.cards8, 
+            Resource.Drawable.card7,
+            Resource.Drawable.card8
         };
 
         int rowCount;
@@ -38,8 +45,12 @@ namespace Memory_Training
         ImageButtonEx _firstCard;
         ImageButtonEx _secondCard;
         int step = 10;
+        Random _random;
+        List<int> _generatedids;
+        List<int> _ids4Cards;
+        
+        TextView _label;
 
-       
         protected override void OnCreate(Bundle savedInstanceState)
         {
             RequestWindowFeature(WindowFeatures.NoTitle);
@@ -49,70 +60,72 @@ namespace Memory_Training
             List<string> stringForSpinner = new List<string>();
             stringForSpinner.Add("4x3");
             stringForSpinner.Add("4x4");
+            stringForSpinner.Add("4x5"); 
+
             _spinner = FindViewById<Spinner>(Resource.Id.spinner1);
             _spinner.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, stringForSpinner);
-            
-            
-            // _mainPage = FindViewById<LinearLayout>(Resource.Id.mainPage1);
+            _label = FindViewById<TextView>(Resource.Id.text1);
+            player = MediaPlayer.Create(this, Resource.Raw.aplodismenty_vne_pomescheniya);
             _button1 = FindViewById<Button>(Resource.Id.button1);
             _cardsField = FindViewById<GridLayout>(Resource.Id.gridLayout1);
-            //ImageButton imageButton = FindViewById<ImageButton>(Resource.Id.imageButton1);
             _cardsField.RowCount = 4;
             _cardsField.ColumnCount = 4;
             _button1.Click += button1_Click;
-            timer1 = new System.Timers.Timer();
-            timer1.Interval = TimeSpan.FromSeconds(0.03).TotalMilliseconds;
-            timer1.Elapsed += Timer1_Elapsed;
+            
+            cardstimer = new System.Timers.Timer();
+            timeTimer = new System.Timers.Timer();
+            timeTimer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
+            timeTimer.Elapsed += timeTimer_Elapsed;
+            cardstimer.Interval = TimeSpan.FromSeconds(0.03).TotalMilliseconds;
+            cardstimer.Elapsed += Timer1_Elapsed;
         }
 
+        int i;//Time i
+        private void timeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            RunOnUiThread(() => _label.Text = "Прошло времени " + i + " секунд");
+            i++;
+        }
         private void Timer1_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var movedCards = MoveCards();
+            var movedCards = MoveCards(); 
 
             if (movedCards.First().RotationY == 90)
-            {
-                var questId = Resource.Drawable.quest;
-                movedCards.ForEach(card =>
-                    card.SetBackgroundResource(card.CurrentResourceId == questId ? (int)card.Tag : questId));
+            { 
+                var questId = Resource.Drawable.Logopit1;
+                RunOnUiThread(() =>
+                    movedCards.ForEach(card =>
+                        card.SetImageResource(card.CurrentResourceId == questId ? (int)card.Tag : questId)));
             }
-            
+           
+
             var needStopTimer = (_secondCard == null && _firstCard.RotationY == 180)
                                 || _secondCard.RotationY == 0;
 
             if (needStopTimer)
-                timer1.Stop();
+                cardstimer.Stop();
 
             InvertStep();
             //если открыли вторую карту, даем 2 секунды на посмотреть
             if (_secondCard?.RotationY == 180)
-            { 
-                timer1.Stop();
-                if (_firstCard.Tag == _secondCard.Tag)
+            {
+                cardstimer.Stop();
+                if (_firstCard.Tag.ToString() == _secondCard.Tag.ToString())
                 {
-                    
-                    // _secondCard.Dispose();
-                    // _firstCard.Dispose();
-                    //_secondCard.Enabled = false;
-                    //_firstCard.Enabled = false;
+                    player.Start();
+                    var tmp1 = _firstCard;
+                    var tmp2 = _secondCard;
                     ResetCards();
                     step = 10;
-                   // _firstCard.Visibility = _secondCard.Visibility = ViewStates.Gone;
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                    player.Pause();
+                    //player.Stop();
+                    RunOnUiThread(() => delCards(tmp1, tmp2));
+               //чо за херь  player.Release();    
                     return;
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-                timer1.Start();
-                
-                //TODO:
-                //либо закрыть карты если разные
-                //TODO:доделать заполнение переменной проверкой одинаковые ли картинки
-                //var sameImages = false;
-               // if (sameImages)
-                //{
-                    
-                   // 
-                  //  ResetCards();
-                  //  return;
-               // }
+                Thread.Sleep(TimeSpan.FromSeconds(0.5));
+                cardstimer.Start();
             }
 
             if (_secondCard != null && _secondCard.RotationY == 0)
@@ -121,7 +134,12 @@ namespace Memory_Training
             }
         }
 
-        void generateCards()
+        void delCards(ImageButton tmp1, ImageButton tmp2)
+        {
+            tmp1.Visibility = ViewStates.Gone;
+            tmp2.Visibility = ViewStates.Gone;
+        }
+        void GenerateCards(int columnCount, int rowCount)
         {
             _random = new Random();
             var maxCount = rowCount * columnCount / 2;
@@ -140,21 +158,17 @@ namespace Memory_Training
 
         void GenerateCard()
         {
-            var сard = new ImageButtonEx(this);
-            // сard.SetImageResource(Resource.Drawable.www1);
-            //сard.SetBackgroundResource(Resource.Drawable.quest);
-            
-            сard.SetBackgroundColor(Color.Black); 
-            сard.Click += card_Click;
-            _cardsField.AddView(сard);
-            сard.Tag = GetResourceId4Card();
-            сard.LayoutParameters.Width = 150;
-            сard.LayoutParameters.Height = 150;
+            var card = new ImageButtonEx(this);
+            card.SetImageResource(Resource.Drawable.Logopit1);
+          //  card.SetBackgroundResource(Resource.Drawable.quest);
+            card.SetPadding(20,20,20,20);
+           // card.SetBackgroundColor(Color.Black);
+            card.Click += card_Click;
+            _cardsField.AddView(card);
+            card.Tag = GetResourceId4Card();
+            card.LayoutParameters.Width = 150;
+            card.LayoutParameters.Height = 200;
         }
-
-        private Random _random;
-        private List<int> _generatedids;
-        private List<int> _ids4Cards;
 
         private int GetResourceId4Card()
         {
@@ -172,30 +186,23 @@ namespace Memory_Training
 
             return randomId;
         }
-
  
         void button1_Click(object sender, EventArgs e)
         {
+            timeTimer.Start();
+             
             var item = _spinner.SelectedItem.ToString();
             if (item == "4x3")
-            {
-                columnCount = 3;
-                rowCount = 4;
-            }
+                GenerateCards(4, 3);
             if (item == "4x4")
-            {
-                columnCount = 4;
-                rowCount = 4;
-            }
-
-            generateCards();
-
+                GenerateCards(4, 4);
+            if (item == "4x5")
+                GenerateCards(4, 5);
         }
-        
         
         void card_Click(object sender, EventArgs e)
         {
-            if (timer1.Enabled)
+            if (cardstimer.Enabled)
                 return;
 
             if (_firstCard == null)
@@ -210,7 +217,7 @@ namespace Memory_Training
 
         private void StartMoveCards()
         {
-            timer1.Start();
+            cardstimer.Start();
         }
 
         private void InvertStep()

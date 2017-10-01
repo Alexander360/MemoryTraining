@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/testGame2"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,12 @@
         android:layout_height="50.0dp"
         android:id="@+id/button1"
         android:drawableTint="#00000000" />
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100.0dp"
+        android:layout_marginTop="550.0dp" />
     <GridLayout
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

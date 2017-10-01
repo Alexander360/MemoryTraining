@@ -45,37 +45,76 @@ namespace Memory_Training
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int animal_card1 = 2130837504;
+			public const int card7 = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int animal_card2 = 2130837505;
+			public const int card8 = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int animal_card3 = 2130837506;
+			public const int cards1 = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int animal_card4 = 2130837507;
+			public const int cards112 = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int animal_card5 = 2130837508;
+			public const int cards2 = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int animal_card6 = 2130837509;
+			public const int cards3 = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int animal_card7 = 2130837510;
+			public const int cards4 = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int animal_card8 = 2130837511;
+			public const int cards5 = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int animal_card9 = 2130837512;
+			public const int cards6 = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int quest = 2130837513;
+			public const int cards7 = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int www1 = 2130837514;
+			public const int cards8 = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int game_screen11 = 2130837515;
+			
+			// aapt resource value: 0x7f02000c
+			public const int game_screen9 = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int iconMT = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int Logopit1 = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int testBCardDis1 = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int testBCardDis2 = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int testCard3 = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int testCardDis1 = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int testCardDis2 = 2130837523;
+			
+			// aapt resource value: 0x7f020014
+			public const int testCardDis3 = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int testGame1 = 2130837525;
+			
+			// aapt resource value: 0x7f020016
+			public const int testGame2 = 2130837526;
+			
+			// aapt resource value: 0x7f020017
+			public const int testGame3 = 2130837527;
 			
 			static Drawable()
 			{
@@ -90,17 +129,20 @@ namespace Memory_Training
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int button1 = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int button1 = 2131099649;
 			
-			// aapt resource value: 0x7f050002
-			public const int gridLayout1 = 2131034114;
+			// aapt resource value: 0x7f060003
+			public const int gridLayout1 = 2131099651;
 			
-			// aapt resource value: 0x7f050000
-			public const int mainContainer = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int mainContainer = 2131099648;
 			
-			// aapt resource value: 0x7f050003
-			public const int spinner1 = 2131034115;
+			// aapt resource value: 0x7f060004
+			public const int spinner1 = 2131099652;
+			
+			// aapt resource value: 0x7f060002
+			public const int text1 = 2131099650;
 			
 			static Id()
 			{
@@ -128,11 +170,27 @@ namespace Memory_Training
 			}
 		}
 		
-		public partial class String
+		public partial class Raw
 		{
 			
 			// aapt resource value: 0x7f040000
-			public const int app_name = 2130968576;
+			public const int aplodismenty_vne_pomescheniya = 2130968576;
+			
+			static Raw()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Raw()
+			{
+			}
+		}
+		
+		public partial class String
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int app_name = 2131034112;
 			
 			static String()
 			{

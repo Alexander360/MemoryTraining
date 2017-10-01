@@ -37,10 +37,15 @@ namespace Memory_Training
 
         public int CurrentResourceId { get; private set; }
 
-        public override void SetBackgroundResource(int resid)
+        //public override void SetBackgroundResource(int resid)
+       // {
+      //      CurrentResourceId = resid;
+       //     base.SetBackgroundResource(resid);
+       // }
+        public override void SetImageResource(int resid)
         {
             CurrentResourceId = resid;
-            base.SetBackgroundResource(resid);
+            base.SetImageResource(resid);
         }
     }
 }
