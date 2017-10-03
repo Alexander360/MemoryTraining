@@ -41,20 +41,48 @@ namespace MemoryTraining
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f050004
+			public const int background = 2131034116;
+			
+			// aapt resource value: 0x7f050003
+			public const int color_action_bar = 2131034115;
+			
+			// aapt resource value: 0x7f050000
+			public const int color_primary = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int color_primary_dark = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int color_primary_light = 2131034114;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Dimension
 		{
 			
-			// aapt resource value: 0x7f050003
-			public const int big = 2131034115;
+			// aapt resource value: 0x7f060003
+			public const int big = 2131099651;
 			
-			// aapt resource value: 0x7f050002
-			public const int medium = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int medium = 2131099650;
 			
-			// aapt resource value: 0x7f050001
-			public const int small = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int small = 2131099649;
 			
-			// aapt resource value: 0x7f050000
-			public const int tiny = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int tiny = 2131099648;
 			
 			static Dimension()
 			{
@@ -70,76 +98,79 @@ namespace MemoryTraining
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int card7 = 2130837504;
+			public const int animal_card8 = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int card8 = 2130837505;
+			public const int card7 = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int cards1 = 2130837506;
+			public const int card8 = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int cards112 = 2130837507;
+			public const int cards1 = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int cards2 = 2130837508;
+			public const int cards112 = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int cards3 = 2130837509;
+			public const int cards2 = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int cards4 = 2130837510;
+			public const int cards3 = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int cards5 = 2130837511;
+			public const int cards4 = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int cards6 = 2130837512;
+			public const int cards5 = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int cards7 = 2130837513;
+			public const int cards6 = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int cards8 = 2130837514;
+			public const int cards7 = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int game_screen11 = 2130837515;
+			public const int cards8 = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int game_screen9 = 2130837516;
+			public const int game_screen11 = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int iconMT = 2130837517;
+			public const int game_screen9 = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int Logopit1 = 2130837518;
+			public const int iconMT = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int testBCardDis1 = 2130837519;
+			public const int Logopit1 = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int testBCardDis2 = 2130837520;
+			public const int testBCardDis1 = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int testCard3 = 2130837521;
+			public const int testBCardDis2 = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int testCardDis1 = 2130837522;
+			public const int testCard3 = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int testCardDis2 = 2130837523;
+			public const int testCardDis1 = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int testCardDis3 = 2130837524;
+			public const int testCardDis2 = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int testGame1 = 2130837525;
+			public const int testCardDis3 = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int testGame2 = 2130837526;
+			public const int testGame1 = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int testGame3 = 2130837527;
+			public const int testGame2 = 2130837527;
+			
+			// aapt resource value: 0x7f020018
+			public const int testGame3 = 2130837528;
 			
 			static Drawable()
 			{
@@ -154,32 +185,32 @@ namespace MemoryTraining
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080008
-			public const int btn_exit = 2131230728;
+			// aapt resource value: 0x7f090008
+			public const int btn_exit = 2131296264;
 			
-			// aapt resource value: 0x7f080001
-			public const int btn_find_cards = 2131230721;
+			// aapt resource value: 0x7f090001
+			public const int btn_find_cards = 2131296257;
 			
-			// aapt resource value: 0x7f080006
-			public const int btn_new = 2131230726;
+			// aapt resource value: 0x7f090006
+			public const int btn_new = 2131296262;
 			
-			// aapt resource value: 0x7f080007
-			public const int btn_settings = 2131230727;
+			// aapt resource value: 0x7f090007
+			public const int btn_settings = 2131296263;
 			
-			// aapt resource value: 0x7f080002
-			public const int button1 = 2131230722;
+			// aapt resource value: 0x7f090002
+			public const int button1 = 2131296258;
 			
-			// aapt resource value: 0x7f080004
-			public const int gridLayout1 = 2131230724;
+			// aapt resource value: 0x7f090004
+			public const int gridLayout1 = 2131296260;
 			
-			// aapt resource value: 0x7f080000
-			public const int mainContainer = 2131230720;
+			// aapt resource value: 0x7f090000
+			public const int mainContainer = 2131296256;
 			
-			// aapt resource value: 0x7f080005
-			public const int spinner1 = 2131230725;
+			// aapt resource value: 0x7f090005
+			public const int spinner1 = 2131296261;
 			
-			// aapt resource value: 0x7f080003
-			public const int text1 = 2131230723;
+			// aapt resource value: 0x7f090003
+			public const int text1 = 2131296259;
 			
 			static Id()
 			{
@@ -232,23 +263,23 @@ namespace MemoryTraining
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int app_name = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int app_name = 2131165184;
 			
-			// aapt resource value: 0x7f060004
-			public const int btn_exit_text = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int btn_exit_text = 2131165188;
 			
-			// aapt resource value: 0x7f060002
-			public const int btn_new_text = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int btn_new_text = 2131165186;
 			
-			// aapt resource value: 0x7f060003
-			public const int btn_settings_text = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int btn_settings_text = 2131165187;
 			
-			// aapt resource value: 0x7f060001
-			public const int choose_training = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int choose_training = 2131165185;
 			
-			// aapt resource value: 0x7f060005
-			public const int find_cards_label = 2131099653;
+			// aapt resource value: 0x7f070005
+			public const int find_cards_label = 2131165189;
 			
 			static String()
 			{
@@ -263,11 +294,17 @@ namespace MemoryTraining
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f070000
-			public const int main_background = 2131165184;
+			// aapt resource value: 0x7f080003
+			public const int ActionBarTheme = 2131230723;
 			
-			// aapt resource value: 0x7f070001
-			public const int margin_default = 2131165185;
+			// aapt resource value: 0x7f080002
+			public const int AppTheme = 2131230722;
+			
+			// aapt resource value: 0x7f080000
+			public const int main_background = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int margin_default = 2131230721;
 			
 			static Style()
 			{

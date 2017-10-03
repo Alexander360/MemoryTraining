@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Timers;
 using Android.App;
+using Android.Graphics;
 using Android.Media;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using MemoryTraining.Extensions;
 using MemoryTraining.Views;
 
 namespace MemoryTraining.Activities
@@ -156,15 +158,22 @@ namespace MemoryTraining.Activities
         void GenerateCard()
         {
             var card = new ImageButtonEx(this);
-            card.SetImageResource(Resource.Drawable.Logopit1);
-          //  card.SetBackgroundResource(Resource.Drawable.quest);
-            card.SetPadding(20,20,20,20);
-           // card.SetBackgroundColor(Color.Black);
+            card.SetBackgroundColor(Color.ParseColor("#81C784"));
+            card.SetImageResource(Resource.Drawable.animal_card8);
+            //  card.SetBackgroundResource(Resource.Drawable.quest);
+
+            //card.SetPadding(d, d, d, d);
+            // card.SetBackgroundColor(Color.Black);
             card.Click += card_Click;
             _cardsField.AddView(card);
             card.Tag = GetResourceId4Card();
-            card.LayoutParameters.Width = 150;
-            card.LayoutParameters.Height = 200;
+            var param = (ViewGroup.MarginLayoutParams) card.LayoutParameters;
+            var dimenMedium = (int)Resources.GetDimension(Resource.Dimension.small);
+            param.SetMargins(dimenMedium, dimenMedium, dimenMedium, dimenMedium);
+            //TODO: разобраться
+            //плохо работает
+            card.LayoutParameters.Width = 800.ToDp();
+            card.LayoutParameters.Height = 1000.ToDp();
         }
 
         private int GetResourceId4Card()

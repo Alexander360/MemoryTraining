@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
   <style name="main_background">
-    <item name="android:background" >@drawable/testGame2</item>
+    <item name="android:background" >@color/background</item>
   </style>
 
   <style name="margin_default">
@@ -10,6 +10,12 @@
     <item name="android:layout_marginTop" >@dimen/medium</item>
     <item name="android:layout_marginBottom" >@dimen/medium</item>
   </style>
-  
-  
+
+  <style name="AppTheme" parent="android:Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+  </style>
+
+  <style name="ActionBarTheme" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <item name="android:background">@color/color_action_bar</item>
+  </style>
 </resources>
