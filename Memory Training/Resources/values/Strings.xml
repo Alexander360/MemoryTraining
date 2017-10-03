@@ -10,4 +10,5 @@
 
   <!--Choose training strings-->
   <string name="find_cards_label">Карты по парам</string>
+  <string name="find_words_label">Размести слова</string>
 </resources>

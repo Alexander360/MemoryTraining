@@ -10,17 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/margin_default"
-        android:id="@+id/btn_new"/>
-  <Button
-    android:text="@string/btn_settings_text"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/margin_default"
-    android:id="@+id/btn_settings"/>
-  <Button
-    android:text="@string/btn_exit_text"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/margin_default"
-    android:id="@+id/btn_exit"/>
+        android:id="@+id/btn_new" />
+    <Button
+        android:text="@string/btn_settings_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/margin_default"
+        android:id="@+id/btn_settings" />
+    <Button
+        android:text="@string/btn_exit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/margin_default"
+        android:id="@+id/btn_exit" />
 </LinearLayout>

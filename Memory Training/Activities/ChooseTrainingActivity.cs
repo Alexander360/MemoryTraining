@@ -22,6 +22,7 @@ namespace Memory_Training.Activities
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             InitializeNavigationButton(Resource.Id.btn_find_cards, typeof(FindCardsActivity));
+            InitializeNavigationButton(Resource.Id.btn_find_words, typeof(FindWordsActivity));
         }
     }
 }
