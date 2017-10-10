@@ -1,7 +1,12 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Widget;
+using MemoryTraining.Activities;
+using MemoryTraining.Resources;
 using Memory_Training.Activities;
+using Android.Content;
+using Android.Preferences;
+using Android.Provider;
 
 namespace MemoryTraining
 {
@@ -16,12 +21,13 @@ namespace MemoryTraining
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             InitializeNavigationButton(Resource.Id.btn_new, typeof(ChooseTrainingActivity));
-                
-            _btnSettings = FindViewById<Button>(Resource.Id.btn_settings);
+            InitializeNavigationButton(Resource.Id.btn_settings, typeof(SettingsActivity));
+           // _btnSettings = FindViewById<Button>(Resource.Id.btn_settings);
             _btnExit = FindViewById<Button>(Resource.Id.btn_exit);
-
+            _btnExit.Click += (s, a) =>
+            {
+            };
         }
 
         

@@ -4,12 +4,16 @@ using System.Linq;
 using System.Threading;
 using System.Timers;
 using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.Media;
 using Android.OS;
+using Android.Preferences;
+using Android.Text.Format;
 using Android.Views;
 using Android.Widget;
 using MemoryTraining.Extensions;
+using MemoryTraining.Resources;
 using MemoryTraining.Views;
 
 namespace MemoryTraining.Activities
@@ -18,9 +22,8 @@ namespace MemoryTraining.Activities
     public class FindCardsActivity : BaseActivity
     {
         protected override int LayoutId => Resource.Layout.FindCards;
-
+        
        // LinearLayout _mainPage;
-        Button _button1;
         GridLayout _cardsField;
         System.Timers.Timer cardstimer;
         System.Timers.Timer timeTimer;
@@ -43,6 +46,7 @@ namespace MemoryTraining.Activities
         int rowCount;
         int columnCount;
 
+        List<ImageButtonEx> allCards;
         ImageButtonEx _firstCard;
         ImageButtonEx _secondCard;
         int step = 10;
@@ -51,52 +55,85 @@ namespace MemoryTraining.Activities
         List<int> _ids4Cards;
         
         TextView _label;
-
+        string text ; 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             RequestWindowFeature(WindowFeatures.NoTitle);
             base.OnCreate(savedInstanceState);
-            List<string> stringForSpinner = new List<string>();
-            stringForSpinner.Add("4x3");
-            stringForSpinner.Add("4x4");
-            stringForSpinner.Add("4x5"); 
+            //List<string> stringForSpinner = new List<string>();
+            //stringForSpinner.Add("4x3");
+            //stringForSpinner.Add("4x4");
+            //stringForSpinner.Add("4x5");
+            
 
-            _spinner = FindViewById<Spinner>(Resource.Id.spinner1);
-            _spinner.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, stringForSpinner);
+            //_spinner = FindViewById<Spinner>(Resource.Id.spinner1);
+            //_spinner.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, stringForSpinner);
             _label = FindViewById<TextView>(Resource.Id.text1);
             player = MediaPlayer.Create(this, Resource.Raw.aplodismenty_vne_pomescheniya);
-            _button1 = FindViewById<Button>(Resource.Id.button1);
             _cardsField = FindViewById<GridLayout>(Resource.Id.gridLayout1);
             _cardsField.RowCount = 4;
             _cardsField.ColumnCount = 4;
-            _button1.Click += button1_Click;
-            
+            allCards = new List<ImageButtonEx>();
             cardstimer = new System.Timers.Timer();
             timeTimer = new System.Timers.Timer();
             timeTimer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
             timeTimer.Elapsed += timeTimer_Elapsed;
             cardstimer.Interval = TimeSpan.FromSeconds(0.03).TotalMilliseconds;
             cardstimer.Elapsed += Timer1_Elapsed;
+            takeDifficult();
+            Button gameMenu = FindViewById<Button>(Resource.Id.gameMenu);
+            gameMenu.Click += (s, a) =>
+            {
+               // FragmentTransaction transcation = FragmentManager.BeginTransaction();
+
+                GameMenu gMenu = new GameMenu();
+
+                gMenu.Show(FragmentManager,"1");
+                timeTimer.Stop();
+            };
         }
 
-        int i;//Time i
-        private void timeTimer_Elapsed(object sender, ElapsedEventArgs e)
+       
+        /*
+        //menu
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            RunOnUiThread(() => _label.Text = "Прошло времени " + i + " секунд");
+            var inflater = MenuInflater;
+            inflater.Inflate(Resource.Menu.menu, menu);
+            return true;
+        }
+         */
+
+        public void takeDifficult()
+        {   
+          text = Intent.GetStringExtra("difficult");
+
+            if (text == "1")
+                  GenerateCards(2, 2);
+              if (text  == "2")
+                  GenerateCards(4, 4);
+             if (text  == "3")
+                GenerateCards(4, 5);
+        }
+
+        int i;//Time
+        private void timeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        { 
+            RunOnUiThread(() => _label.Text = "Прошло времени: " + i + " секунд");
             i++;
         }
+
         private void Timer1_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var movedCards = MoveCards(); 
+            var movedCards = MoveCards();
 
             if (movedCards.First().RotationY == 90)
-            { 
+            {
                 var questId = Resource.Drawable.Logopit1;
                 RunOnUiThread(() =>
                     movedCards.ForEach(card =>
-                        card.SetImageResource(card.CurrentResourceId == questId ? (int)card.Tag : questId)));
+                        card.SetImageResource(card.CurrentResourceId == questId ? (int) card.Tag : questId)));
             }
-           
 
             var needStopTimer = (_secondCard == null && _firstCard.RotationY == 180)
                                 || _secondCard.RotationY == 0;
@@ -112,40 +149,67 @@ namespace MemoryTraining.Activities
                 if (_firstCard.Tag.ToString() == _secondCard.Tag.ToString())
                 {
                     player.Start();
+                    
                     var tmp1 = _firstCard;
                     var tmp2 = _secondCard;
                     ResetCards();
                     step = 10;
                     Thread.Sleep(TimeSpan.FromSeconds(1));
                     player.Pause();
-                    //player.Stop();
+                    
+                    //player.Stop(); 
                     RunOnUiThread(() => delCards(tmp1, tmp2));
-               //чо за херь  player.Release();    
+                    //чо за херь  player.Release();  When the MediaRecorder is no longer needed, its resources must be released:
+                    //player.Reset();
                     return;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(0.5));
                 cardstimer.Start();
             }
-
             if (_secondCard != null && _secondCard.RotationY == 0)
             {
                 ResetCards();
             }
         }
-
-        void delCards(ImageButton tmp1, ImageButton tmp2)
+        
+        void delCards(ImageButtonEx tmp1, ImageButtonEx tmp2)
         {
             tmp1.Visibility = ViewStates.Gone;
             tmp2.Visibility = ViewStates.Gone;
+
+            allCards.Remove(tmp1);
+            allCards.Remove(tmp2);
+            saveRecords();
         }
-        void GenerateCards(int columnCount, int rowCount)
+
+        void saveRecords()
+        {
+
+            if (allCards.Count == 0)
+            {
+                timeTimer.Stop();
+                ResultMenu resMenu = new ResultMenu();
+                Context mContext = Android.App.Application.Context;
+                PreferencesManager ap = new PreferencesManager(mContext);
+              
+                int lastRes = ap.GetResult();
+                resMenu.Show(FragmentManager, "2");
+
+                resMenu.TextResult(lastRes, i);
+                if (i < lastRes)
+                    ap.SetResult(i);
+            }
+        }
+
+
+        public void GenerateCards(int columnCount, int rowCount)
         {
             _random = new Random();
             var maxCount = rowCount * columnCount / 2;
             _ids4Cards = _numberForCardImage.GetRange(0, maxCount);
 
             _generatedids = new List<int>();
-
+            
             for (int row = 0; row < rowCount; row++)
             {
                 for (int colum = 0; colum < columnCount; colum++)
@@ -154,10 +218,11 @@ namespace MemoryTraining.Activities
                 }
             }
         }
-
+        
         void GenerateCard()
         {
             var card = new ImageButtonEx(this);
+            //allCards = new List<ImageButtonEx>();
             card.SetBackgroundColor(Color.ParseColor("#81C784"));
             card.SetImageResource(Resource.Drawable.animal_card8);
             //  card.SetBackgroundResource(Resource.Drawable.quest);
@@ -172,8 +237,9 @@ namespace MemoryTraining.Activities
             param.SetMargins(dimenMedium, dimenMedium, dimenMedium, dimenMedium);
             //TODO: разобраться
             //плохо работает
-            card.LayoutParameters.Width = 800.ToDp();
-            card.LayoutParameters.Height = 1000.ToDp();
+            card.LayoutParameters.Width = 300.ToDp();
+            card.LayoutParameters.Height = 400.ToDp();
+            allCards.Add(card);
         }
 
         private int GetResourceId4Card()
@@ -193,18 +259,7 @@ namespace MemoryTraining.Activities
             return randomId;
         }
  
-        void button1_Click(object sender, EventArgs e)
-        {
-            timeTimer.Start();
-             
-            var item = _spinner.SelectedItem.ToString();
-            if (item == "4x3")
-                GenerateCards(4, 3);
-            if (item == "4x4")
-                GenerateCards(4, 4);
-            if (item == "4x5")
-                GenerateCards(4, 5);
-        }
+        
         
         void card_Click(object sender, EventArgs e)
         {
@@ -212,7 +267,10 @@ namespace MemoryTraining.Activities
                 return;
 
             if (_firstCard == null)
+            {
                 _firstCard = (ImageButtonEx)sender;
+                timeTimer.Start();
+            }
             else if (_secondCard == null && sender != _firstCard)
                 _secondCard = (ImageButtonEx)sender;
 

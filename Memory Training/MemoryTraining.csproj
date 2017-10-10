@@ -57,12 +57,17 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ChooseCardDifficultActivity.cs" />
     <Compile Include="Activities\ChooseTrainingActivity.cs" />
     <Compile Include="Activities\FindCardsActivity.cs" />
     <Compile Include="Activities\FindWordsActivity.cs" />
+    <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="BaseActivity.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="Resources\ResultMenu.cs" />
+    <Compile Include="Resources\GameMenu.cs" />
+    <Compile Include="Resources\PreferencesManager.cs" />
     <Compile Include="Views\ImageButtonEx.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -74,6 +79,7 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\drawable\animal_card8.png" />
     <AndroidResource Include="Resources\layout\FindCards.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -81,6 +87,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FindWords.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ChooseCardDifficult.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Settings.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -175,7 +190,12 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\animal_card8.png" />
+    <AndroidResource Include="Resources\layout\Menu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_menu_black_24dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

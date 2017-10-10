@@ -10,5 +10,17 @@
 
   <!--Choose training strings-->
   <string name="find_cards_label">Карты по парам</string>
-  <string name="find_words_label">Размести слова</string>
+  <string name="find_words_label">Разместить слова</string>
+
+  <!--Choose card difficult strings-->
+  <string name="easy_difficult_text">Легкая сложность</string>
+  <string name="normal_difficult_text">Нормальная сложность</string>
+  <string name="hard_hard_text">Тяжелая сложность</string>
+
+  <!--Game menu strings-->
+  <string name="btn_Continue_text">Продолжить</string>
+
+  <!--Result menu strings-->
+  <string name="btn_start_again_text">Начать сначала</string>
+  <string name="btn_menu_exit_text">Выйти в главное меню</string>
 </resources>
