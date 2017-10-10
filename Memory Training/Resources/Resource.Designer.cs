@@ -344,6 +344,9 @@ namespace MemoryTraining
 			// aapt resource value: 0x7f070008
 			public const int normal_difficult_text = 2131165192;
 			
+			// aapt resource value: 0x7f07000d
+			public const int result_template = 2131165197;
+			
 			static String()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

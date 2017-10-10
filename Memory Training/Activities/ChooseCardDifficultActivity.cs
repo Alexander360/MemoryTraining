@@ -25,6 +25,10 @@ namespace MemoryTraining.Activities
             // Create your application here
             _easyDifficult = FindViewById<Button>(Resource.Id.btn_easy_difficult);
          
+            //TODO: переделать - сделать 1 обработчик для 3 кнопок, а значение в "сложность" бросать с тега, которое в этом месте сначала проставишь
+            //делаешь приватный метод у которого 2 свойства - int айдишник кнопки, второй - его сложность
+            //таким образом тебе не надо будет заводить переменные
+            //а прост овызвать 3 раза метод который найдет кнопку проставит тег и подпишет на событие
             _easyDifficult.Click += (s, e) =>
             {
                 var findCardsAct = new Intent(this, typeof(FindCardsActivity));

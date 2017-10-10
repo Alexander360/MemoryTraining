@@ -19,8 +19,9 @@
 
   <!--Game menu strings-->
   <string name="btn_Continue_text">Продолжить</string>
-
+  
   <!--Result menu strings-->
   <string name="btn_start_again_text">Начать сначала</string>
   <string name="btn_menu_exit_text">Выйти в главное меню</string>
+  <string name="result_template">Вы сделали за {0} секунд. \nВаш лучший результат {1}.</string>
 </resources>

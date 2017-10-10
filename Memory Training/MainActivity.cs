@@ -21,6 +21,9 @@ namespace MemoryTraining
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            PreferencesManager.Current.Initialize();
+
             InitializeNavigationButton(Resource.Id.btn_new, typeof(ChooseTrainingActivity));
             InitializeNavigationButton(Resource.Id.btn_settings, typeof(SettingsActivity));
            // _btnSettings = FindViewById<Button>(Resource.Id.btn_settings);

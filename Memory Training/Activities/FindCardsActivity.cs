@@ -88,7 +88,9 @@ namespace MemoryTraining.Activities
 
                 GameMenu gMenu = new GameMenu();
 
-                gMenu.Show(FragmentManager,"1");
+                //gMenu.Show(FragmentManager,"1");
+                //TODO: в качестве тега для фрагмента можно использовать его название типа
+                gMenu.Show(FragmentManager, nameof(GameMenu));
                 timeTimer.Stop();
             };
         }
@@ -182,22 +184,24 @@ namespace MemoryTraining.Activities
             saveRecords();
         }
 
+        //TODO: метод по факту не сохраняет результат, а проверяет на готовность к завершению
+        //по этому я б назвал как то типа CheckFinish()
         void saveRecords()
         {
 
             if (allCards.Count == 0)
             {
                 timeTimer.Stop();
-                ResultMenu resMenu = new ResultMenu();
+                ResultMenu resMenu = new ResultMenu(this);
                 Context mContext = Android.App.Application.Context;
-                PreferencesManager ap = new PreferencesManager(mContext);
               
-                int lastRes = ap.GetResult();
+                //TODO: пример использования менеджера
+                int lastRes = PreferencesManager.Current.FindCardsBestResultEasy;
                 resMenu.Show(FragmentManager, "2");
 
                 resMenu.TextResult(lastRes, i);
                 if (i < lastRes)
-                    ap.SetResult(i);
+                    PreferencesManager.Current.SetValue(nameof(PreferencesManager.FindCardsBestResultEasy), i);
             }
         }
 

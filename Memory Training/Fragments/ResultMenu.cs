@@ -3,7 +3,6 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Memory_Training.Activities;
 
 namespace MemoryTraining.Resources
 {
@@ -11,6 +10,13 @@ namespace MemoryTraining.Resources
     {
         public TextView _resultForCards;
         private Button _startAgain;
+
+        private readonly Activity _contextActivity;
+
+        public ResultMenu(Activity contextActivity)
+        {
+            _contextActivity = contextActivity;
+        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -21,7 +27,9 @@ namespace MemoryTraining.Resources
             _startAgain = view.FindViewById<Button>(Resource.Id.btn_start_again);
             _startAgain.Click += (s, e) =>
             {
-
+                var intent = _contextActivity.Intent;
+                _contextActivity.Finish();
+                StartActivity(intent);
             };
             Button goToMenu = view.FindViewById<Button>(Resource.Id.btn_menu_exit);
             goToMenu.Click += (s, e) =>
@@ -34,11 +42,14 @@ namespace MemoryTraining.Resources
             return view;
         }
  
+        
         string result;
-
+        //TODO:тут публичный метод не нужно значение нужно брать с PreferencesManager.Current
         public string TextResult(int bestResult, int newResult)
         {
-            result = "Вы сделали за" + newResult + "секунд." + '\n' + "Ваш лучший результат " + bestResult;
+            //пример как заполнять строку с ресурсов значениями
+            var template = Context.GetString(Resource.String.result_template);
+            var stringWithParams = string.Format(template, newResult, bestResult);
             return result;
         }
 

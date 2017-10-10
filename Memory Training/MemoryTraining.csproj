@@ -65,9 +65,9 @@
     <Compile Include="BaseActivity.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Resources\ResultMenu.cs" />
-    <Compile Include="Resources\GameMenu.cs" />
-    <Compile Include="Resources\PreferencesManager.cs" />
+    <Compile Include="Fragments\ResultMenu.cs" />
+    <Compile Include="Fragments\GameMenu.cs" />
+    <Compile Include="PreferencesManager.cs" />
     <Compile Include="Views\ImageButtonEx.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

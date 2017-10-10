@@ -24,9 +24,6 @@ namespace Memory_Training.Activities
 
             InitializeNavigationButton(Resource.Id.btn_find_cards, typeof(ChooseCardDifficultActivity));
             InitializeNavigationButton(Resource.Id.btn_find_words, typeof(FindWordsActivity));
-
-            //xepь
-            //InitializeNavigationButton(Resource.Id.btn_find_cards, typeof(FindCardsActivity));
         }
     }
 }
