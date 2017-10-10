@@ -10,6 +10,7 @@ using Android.Media;
 using Android.OS;
 using Android.Preferences;
 using Android.Text.Format;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using MemoryTraining.Extensions;
@@ -239,10 +240,9 @@ namespace MemoryTraining.Activities
             var param = (ViewGroup.MarginLayoutParams) card.LayoutParameters;
             var dimenMedium = (int)Resources.GetDimension(Resource.Dimension.small);
             param.SetMargins(dimenMedium, dimenMedium, dimenMedium, dimenMedium);
-            //TODO: разобраться
-            //плохо работает
-            card.LayoutParameters.Width = 300.ToDp();
-            card.LayoutParameters.Height = 400.ToDp();
+            
+            card.LayoutParameters.Width = 70.ToDp();
+            card.LayoutParameters.Height = 100.ToDp();
             allCards.Add(card);
         }
 

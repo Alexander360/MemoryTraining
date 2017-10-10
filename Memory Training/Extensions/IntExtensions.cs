@@ -1,6 +1,7 @@
 ﻿
 
 
+using Android.Util;
 using Plugin.CurrentActivity;
 
 namespace MemoryTraining.Extensions
@@ -9,8 +10,8 @@ namespace MemoryTraining.Extensions
     {
         public static int ToDp(this int pixelValue)
         {
-            var dp = (int)(pixelValue / CrossCurrentActivity.Current.Activity.Resources.DisplayMetrics.Density);
-            return dp;
+            return (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, pixelValue,
+                CrossCurrentActivity.Current.Activity.Resources.DisplayMetrics);
         }
     }
 }
